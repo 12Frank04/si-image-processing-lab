@@ -1,21 +1,27 @@
 [build-system]
-requires = [
-    "setuptools",
-]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-requires-python = ">=3.10"
 name = "new_kedro_project"
+version = "0.1.0"
+description = "Laboratorio de procesamiento de imagenes con Kedro"
 readme = "README.md"
-dynamic = [
-    "version",
-]
+requires-python = ">=3.10"
+
 dependencies = [
     "ipython>=8.10",
     "jupyterlab>=3.0",
     "notebook",
     "kedro~=1.3.1",
+    "kedro-datasets",
+    "Pillow>=10.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0"
 ]
 
 [project.scripts]
@@ -23,13 +29,8 @@ new-kedro-project = "new_kedro_project.__main__:main"
 
 [project.entry-points."kedro.hooks"]
 
-[tool.setuptools.dynamic.version]
-attr = "new_kedro_project.__version__"
-
 [tool.setuptools.packages.find]
-where = [
-    "src",
-]
+where = ["src"]
 namespaces = false
 
 [tool.kedro]
@@ -42,3 +43,10 @@ source_dir = "src"
 
 [tool.kedro_telemetry]
 project_id = "27fae96834e3468ea7566691aa43cdf4"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
